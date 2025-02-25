@@ -89,6 +89,10 @@ services:
 ```
 - auto scaling
 
+## numpy
+```
+```
+
 ## ref
 - https://fastapi.tiangolo.com/ko/
 - http://jasonwilder.com/blog/2014/03/25/automated-nginx-reverse-proxy-for-docker/
