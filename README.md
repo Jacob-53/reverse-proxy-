@@ -60,3 +60,36 @@ $ sudo docker exec -it reverse-proxy-lb-1 bash
 $ nginx -s reload
 ``` 
 - 스케일 아웃 후 lb 도커 안에서 재시작 방법 (에러 없이 분산적용) 
+
+```
+services:
+  web1:
+    image: httpd:latest
+    volumes:
+      - ./pyweb1:/usr/local/apache2/htdocs
+    deploy:
+      resources:
+        limits:
+          cpus: "0.01" 
+          memory: "40M"
+    expose:
+      - "80"
+    environment:
+      - VIRTUAL_HOST=localhost
+      - VIRTUAL_PORT=80
+  
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy # https://github.com/nginx-proxy/nginx-proxy
+    ports:
+      - "9889:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    depends_on:
+      - web1
+```
+- auto scaling
+
+## ref
+- https://fastapi.tiangolo.com/ko/
+- http://jasonwilder.com/blog/2014/03/25/automated-nginx-reverse-proxy-for-docker/
+- https://hub.docker.com/r/nginxproxy/nginx-proxy

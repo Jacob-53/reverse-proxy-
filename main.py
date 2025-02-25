@@ -66,6 +66,29 @@ def add_large_arrays():
     return {"execution_time": end_time - start_time}
 
 
+@app.get("/add-large-arrays-choice")
+def add_large_arrays_choice():
+    array_start_time = time.time()
+    N = 10**6  # 100만 개 요소
+    la = random.choices(range(1,N+1),k=N)
+    lb = random.choices(range(1,N+1),k=N)
+    array_end_time = time.time()
+    
+    add_start_time = time.time()
+    
+    # 요소별 덧셈
+    result=[]
+    for i in range(len(la)):
+            result.append(la[i]+lb[i])
+    # 실행 시간 측정 종료
+    add_end_time = time.time()
+    
+    # 수행 시간 리턴
+    return {
+        "array_creation_time" : array_end_time - array_start_time,
+        "execution_time": add_end_time - add_start_time
+        }
+
 @app.get("/items/{item_id}")
 def read_item(item_id: int, q: Union[str, None] = None):
     return {"item_id": item_id, "q": q}
