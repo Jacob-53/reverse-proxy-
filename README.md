@@ -89,10 +89,26 @@ services:
 ```
 - auto scaling
 
-## numpy
+## Fastapi
+- https://fastapi.tiangolo.com/ko/
 ```
+$ source .venv/bin/activate
+$ fastapi deb main.py
 ```
-
+## PDM create requriment.txt
+ 
+```
+$ pdm export -o requirements.txt --without-hashes
+```
+## Docker build & run
+```
+$ sudo docker build -t myapi1 -f docker/fastapi/Dockerfile .
+```
+- 생성
+```
+$ sudo docker run -d --name my-api-1 -p 8949:80 myapi1
+```
+- run 
 ## ref
 - https://fastapi.tiangolo.com/ko/
 - http://jasonwilder.com/blog/2014/03/25/automated-nginx-reverse-proxy-for-docker/

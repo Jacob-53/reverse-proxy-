@@ -47,7 +47,7 @@ def two_dimensional_array():
 
 @app.get("/add-large-arrays")
 def add_large_arrays():
-    N = 10**6  # 100만 개 요소
+    N = 10**3  # 100만 개 요소
     la = random.sample(range(1,N+1),N)
     lb = random.sample(range(1,N+1),N)
     # 랜덤한 1차원 배열 2개 생성
@@ -69,7 +69,7 @@ def add_large_arrays():
 @app.get("/add-large-arrays-choice")
 def add_large_arrays_choice():
     array_start_time = time.time()
-    N = 10**6  # 100만 개 요소
+    N = 10**3  # 100만 개 요소
     la = random.choices(range(1,N+1),k=N)
     lb = random.choices(range(1,N+1),k=N)
     array_end_time = time.time()
