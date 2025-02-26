@@ -37,3 +37,8 @@ services:
       - VIRTUAL_PORT=80
     volumes:
       - ./main.py:/code/main.py
+    deploy:
+        resources:
+            limits:
+                cpus: "0.05"
+                memory: "500M"
