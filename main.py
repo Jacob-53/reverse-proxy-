@@ -1,10 +1,12 @@
 from typing import Union
 from fastapi import FastAPI
+import numpy as np
+#import matplotlib.pyplot as plt
 import random
 import time
 app = FastAPI()
 
-N = 10**4  # 100만 개 요소
+N = 10**5  # 100만 개 요소
 
 @app.get("/")
 def read_root():
@@ -88,6 +90,39 @@ def add_large_arrays_choice():
         "array_creation_time" : array_end_time - array_start_time,
         "execution_time": add_end_time - add_start_time
         }
+
+@app.get("/gen_r_array_choices")
+def gen_r_array_choices():
+    N=100000
+    a = random.choices(range(101), k=N)
+    b = random.choices(range(101), k=N)
+    result = []
+    for x, y in zip(a, b):
+        result.append(x + y)
+    return len(result)
+
+@app.get("/gen_r_array_nump")
+def gen_r_array_numpy():
+    N=100000
+    a = np.random.randint(1, 101, size=N)  # 1 이상 100 이하의 정수
+    b = np.random.randint(1, 101, size=N)
+    return len((a+b).tolist())
+
+@app.get("/plus_py")
+def plus_py():
+    result = []
+    for x, y in zip(a, b):
+        result.append(x + y)
+    return result
+
+@app.get("/plus_numpy")
+def plus_numpy(a, b):
+    return a + b
+
+
+
+
+
 
 @app.get("/items/{item_id}")
 def read_item(item_id: int, q: Union[str, None] = None):
