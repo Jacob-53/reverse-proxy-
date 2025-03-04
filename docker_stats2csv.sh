@@ -5,13 +5,13 @@ OUTPUT_FILE="docker_stats.csv"
 
 # 파일이 처음 생성될 때 헤더 추가
 if [ ! -f "$OUTPUT_FILE" ]; then
-    echo "Timestamp,Container,Name,ID,CPUPerc,MemUsage,MemPerc,NetIO,BlockIO,PIDs" > "$OUTPUT_FILE"
+    echo "DateTime,Container,Name,ID,CPUPerc,MemUsage,MemPerc,NetIO,BlockIO,PIDs" > "$OUTPUT_FILE"
 fi
 
 # 무한 루프 실행
 while true; do
     # 현재 타임스탬프 (초 단위)
-    TIMESTAMP=$(date +%s)
+    TIMESTAMP=$(date -u "+%Y-%m-%d %H:%M:%S")
 
     # docker stats 명령어 실행 및 JSON 파싱
     sudo docker stats --no-stream --format "{{ json . }}" | while read -r line; do

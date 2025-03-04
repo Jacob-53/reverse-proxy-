@@ -93,7 +93,6 @@ def add_large_arrays_choice():
 
 @app.get("/gen_r_array_choices")
 def gen_r_array_choices():
-    N=100000
     a = random.choices(range(101), k=N)
     b = random.choices(range(101), k=N)
     result = []
@@ -103,7 +102,6 @@ def gen_r_array_choices():
 
 @app.get("/gen_r_array_nump")
 def gen_r_array_numpy():
-    N=100000
     a = np.random.randint(1, 101, size=N)  # 1 이상 100 이하의 정수
     b = np.random.randint(1, 101, size=N)
     return len((a+b).tolist())
