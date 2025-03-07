@@ -113,3 +113,43 @@ $ sudo docker run -d --name my-api-1 -p 8949:80 myapi1
 - https://fastapi.tiangolo.com/ko/
 - http://jasonwilder.com/blog/2014/03/25/automated-nginx-reverse-proxy-for-docker/
 - https://hub.docker.com/r/nginxproxy/nginx-proxy
+
+## Deploy Blog to AWS
+``` bash
+$ cd ~/keys
+$ ssh -i "<mykey.pem>" <서버이름>@<퍼블릭 IPv4 DNS>
+
+$ mkdir code
+$ cd code
+$ git clone https://github.com/Jacob-53 (https clone)
+$ cd <REPO FOLDER>
+$ sudo cp -rf blog /var/www
+
+$ cd /etc/nginx/sites-enabled
+$ sudo vi blog(any name)
+    ``` bash
+    server {
+        listen 80;
+        listen [::]:80;
+
+        server_name aws.jacob53.shop;
+
+        root /var/www/blog;
+        index index.html;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+    }
+    ```
+$ sudo nginx -t
+$ sudo systemctl restart nginx
+만약 AWS 퍼블릭 IPv4 DNS 로 접속 원한다면 
+$ sudo vi /etc/nginx/nginx.conf
+$ server_names_hash_bucket_size 128; 수정
+만약 수정 하였다면
+$ sudo nginx -t
+$ sudo systemctl restart nginx
+접속테스트 
+
+```
