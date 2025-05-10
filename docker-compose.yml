@@ -1,0 +1,26 @@
+services:
+  web1:
+    image: httpd:latest
+    #ports:
+     # - "8081:80"
+    volumes:
+      - ./pyweb1:/usr/local/apache2/htdocs
+    deploy:
+      resources:
+        limits:
+          cpus: "0.01" 
+          memory: "40M"
+  lb:
+    image: nginx
+    ports:
+      - "8083:80"
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/deafult.conf:ro
+    depends_on:
+      - web1
+      #- web2
+    deploy:
+      resources:
+        limits:
+          cpus: "0.05" 
+          memory: "20M"
